@@ -1,0 +1,10 @@
+Ćwiczenie 1.
+
+Imię i nazwisko - inne niż biznesowe
+ID Pracownika - wewnętrzne
+Dane biometryczne np. odcisk palca - poufne
+Numer karty debetowej - poufne
+Imię i nazwisko - inne niż bizensowe
+Nazwa stanowiska - biznesowe
+Zawód - ogólne
+Historia choroby - poufne
