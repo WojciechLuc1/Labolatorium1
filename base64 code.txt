@@ -1,0 +1,55 @@
+def encrypt_base64(text):
+    # tabela do kodowania Base64 
+    base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+    # zmiana tekstu na ASCII
+    ascii_codes = [ord(char) for char in text]
+
+    # zmiana kodów ascii na liczby binarne
+    binary = ['{:08b}'.format(code) for code in ascii_codes]
+
+    # łączenie liczb binranych w jeden ciąg
+    string = ''.join(binary)
+
+    # wypełnienie pustych miejsc zerami
+    remainder = len(string) % 6
+    if remainder != 0:
+        string += '0' * (6 - remainder)
+
+    # podział ciągu binarnego na 6 bitowe grupy
+    six_bit_groups = [string[i:i+6] for i in range(0, len(string), 6)]
+
+    # zamiana 6 bitowych grup na indeksy w tabeli base64
+    base64_index = [int(group, 2) for group in six_bit_groups]
+
+    # zamiana uzyskanego indeksu na znaki z tabeli base64
+    base64_chars = [base64[index] for index in base64_index]
+
+    # połączenie znaków w jeden ciąg base64
+    base64_text = ''.join(base64_chars)
+
+    return base64_text
+
+    #analogicznie dekodowanie polega na konwersji teksu na indeksy w tabeli, zamianie ich na ciągi binarne, oraz dopasowaniu do 8 bitowych
+    #grup odpowiednich kodów ASCII i połączeniu ich w ciąg znaków
+
+def decrypt_base64(base64_ciphertext):
+
+    base64_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+    base64_indices = [base64_table.index(char) for char in base64_ciphertext]
+
+    six_bit_groups = ['{:06b}'.format(index) for index in base64_indices]
+
+    binary_string = ''.join(six_bit_groups)
+
+    binary_string = binary_string.rstrip('0')
+
+    eight_bit_groups = [binary_string[i:i+8] for i in range(0, len(binary_string), 8)]
+
+    ascii_codes = [int(group, 2) for group in eight_bit_groups]
+
+    decrypted_text = ''.join(chr(code) for code in ascii_codes)
+
+    return decrypted_text
+
